@@ -17384,7 +17384,7 @@ only screen and (max-width: 575px) {
 .main-menu>ul>li.has-children>a::after {
     content: "\f107";
     font-family: 'Font Awesome 5 Free';
-    font-weight:900;
+    font-weight: 900;
     padding-left: 5px
 }
 
@@ -18391,7 +18391,7 @@ only screen and (min-width: 992px) and (max-width: 1199px) {
 }
 
 .funfact-bg {
-    background-image: url(../images/bg/funfact-bg.jpg);
+    background-image: url(../images/bg/funfact-bg.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -18572,7 +18572,7 @@ only screen and (min-width: 992px) and (max-width: 1199px) {
 }
 
 .breadcrumb-bg {
-    background-image: url(../images/bg/breadcrumb-bg.jpg);
+    background-image: url(../images/bg/breadcrumb-bg.webp);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
@@ -19530,7 +19530,7 @@ only screen and (max-width: 767px) {
     content: "\f10e";
     color: #8c8c8c;
     font-family: "Font Awesome 5 Free";
-    font-weight:900;
+    font-weight: 900;
     font-size: 30px;
     position: absolute;
     top: 15px;
@@ -20454,5 +20454,91 @@ only screen and (max-width: 479px) {
     height: 100%;
     width: 100%;
     position: absolute;
-    z-index:1
+    z-index: 1
+}
+
+.about-slider .main-slider-nav {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.25);
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    color: #ffffff;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all 0.3s ease 0s;
+    -o-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    font-size: 28px
+}
+
+.about-slider .main-slider-nav::after {
+    display: none
+}
+
+.about-slider .main-slider-nav:hover {
+    color: #ffb300
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px),
+only screen and (min-width: 992px) and (max-width: 1199px) {
+    .about-slider .main-slider-nav {
+        font-size: 22px
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .about-slider .main-slider-nav {
+        display: none
+    }
+}
+
+.about-slider .home-slider-prev {
+    left: 30px
+}
+
+@media only screen and (max-width: 575px) {
+    .about-slider .home-slider-prev {
+        left: 5px
+    }
+}
+
+.about-slider .home-slider-next {
+    right: 30px
+}
+
+.about-slider .home-slider-next::after {
+    display: none
+}
+
+@media only screen and (max-width: 575px) {
+    .about-slider .home-slider-next {
+        right: 5px
+    }
+}
+
+.about-slider:hover .main-slider-nav {
+    opacity: 1;
+    visibility: visible
+}
+
+.about-slider .home-slider-prev,
+.about-slider .home-slider-next {
+    margin-top: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.about-slider .swiper-pagination {
+    position: absolute;
+    bottom: 20px;
+    display: none
+}
+
+@media only screen and (max-width: 767px) {
+    .about-slider .swiper-pagination {
+        display: block
+    }
 }

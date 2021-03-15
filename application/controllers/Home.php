@@ -38,6 +38,33 @@ class Home extends CI_Controller
         $this->viewData->stories = $this->general_model->get_all("stories", null, "rank ASC", ["isActive" => 1]);
         $this->viewData->story_items = $this->general_model->get_all("story_items", null, "rank ASC", ["isActive" => 1, "lang" => $this->viewData->lang]);
         /**
+         * Testimonials
+         */
+        $this->viewData->testimonials = $this->general_model->get_all("testimonials", null, "id DESC", ["isActive" => 1], [], [], [6]);
+        foreach ($this->viewData->testimonials as $key => $data) :
+            foreach ($data as $k => $v) :
+                if (isJson($v)) :
+                    $this->viewData->testimonials[$key]->$k = json_decode($v);
+                else :
+                    $this->viewData->testimonials[$key]->$k = $v;
+                endif;
+            endforeach;
+        endforeach;
+
+        /**
+         * Brands
+         */
+        $this->viewData->brands = $this->general_model->get_all("brands", null, "id DESC", ["isActive" => 1], [], [], []);
+        foreach ($this->viewData->brands as $key => $data) :
+            foreach ($data as $k => $v) :
+                if (isJson($v)) :
+                    $this->viewData->brands[$key]->$k = json_decode($v);
+                else :
+                    $this->viewData->brands[$key]->$k = $v;
+                endif;
+            endforeach;
+        endforeach;
+        /**
          * Footer Services
          */
         $this->viewData->footerServices = $this->general_model->get_all("services", null, "rank ASC", ["isActive" => 1], [], [], [7]);
@@ -89,20 +116,6 @@ class Home extends CI_Controller
                     $this->viewData->news[$key]->$k = json_decode($v);
                 else :
                     $this->viewData->news[$key]->$k = $v;
-                endif;
-            endforeach;
-        endforeach;
-
-        /**
-         * Testimonials
-         */
-        $this->viewData->testimonials = $this->general_model->get_all("testimonials", null, "id DESC", ["isActive" => 1], [], [], [6]);
-        foreach ($this->viewData->testimonials as $key => $data) :
-            foreach ($data as $k => $v) :
-                if (isJson($v)) :
-                    $this->viewData->testimonials[$key]->$k = json_decode($v);
-                else :
-                    $this->viewData->testimonials[$key]->$k = $v;
                 endif;
             endforeach;
         endforeach;
@@ -218,13 +231,13 @@ class Home extends CI_Controller
 
         if (in_array($in_parent, $store_all_id)) :
             $result = $this->general_model->get_all("menus", null, "rank ASC", ["position" => $position, "top_id" => $in_parent, "isActive" => 1]);
-            $html .=  '<ul class="' . ($position == "HEADER" ? ($in_parent == 0 ? null : "sub-menu") : ($position == "HEADER_RIGHT" ? "useful-link" : ($position == "MOBILE" ? ($in_parent == 0 ? "mobile-menu" : "dropdown") : "widget-list"))) . '">';
+            $html .=  '<ul class="' . ($position == "HEADER" ? ($in_parent == 0 ? "nav" : "sub-menu") : ($position == "HEADER_RIGHT" ? "useful-link" : ($position == "MOBILE" ? ($in_parent == 0 ? "mobile-menu" : "dropdown") : "widget-list"))) . '">';
             foreach ($result as $key => $value) :
                 $value->title = (!empty($value->title) ? json_decode($value->title, true)[$lang] : null);
                 if (!empty($value->url)) :
                     $value->url = (!empty($value->url) ? json_decode($value->url, true)[$lang] : null);
                 endif;
-                $html .= '<li ' . ($position == "MOBILE" && $in_parent == $value->top_id ? "class='has-children'" : ($position == "HEADER" && $in_parent == 0 ? "class='has-children'" : null)) . '>';
+                $html .= '<li ' . (($position == "MOBILE" || $position == "HEADER") && in_array($value->id, $store_all_id) ? "class='has-children'" : null) . '>';
                 if (empty($value->url)) :
                     $page = $this->general_model->get("pages", null, ["isActive" => 1, "id" => $value->page_id]);
                     if ($value->page_id != 0) :
@@ -263,25 +276,25 @@ class Home extends CI_Controller
         $config['base_url'] = (!empty($seo_url) && !is_numeric($seo_url) ? base_url($this->uri->segment(1) . "/{$seo_url}") : base_url($this->uri->segment(1)));
         $config['uri_segment'] = (!empty($seo_url) && !is_numeric($seo_url) ? 3 : 2);
         $config['use_page_numbers'] = TRUE;
-        $config["full_tag_open"] = "<ul class='pagination justify-content-center'>";
+        $config["full_tag_open"] = "<ul class='pagination-cr mt-8 pt-8 border-top justify-content-center'>";
         $config["first_link"] = "İlk";
-        $config["first_tag_open"] = "<li class='page-item'>";
+        $config["first_tag_open"] = "<li>";
         $config["first_tag_close"] = "</li>";
         $config["prev_link"] = "<i class='fa fa-angle-double-left'></i>";
-        $config["prev_tag_open"] = "<li class='page-item'>";
+        $config["prev_tag_open"] = "<li>";
         $config["prev_tag_close"] = "</li>";
-        $config["cur_tag_open"] = "<li class='page-item active'><a class='page-link' href='javascript:void(0)'>";
+        $config["cur_tag_open"] = "<li class='active'><a href='javascript:void(0)'>";
         $config["cur_tag_close"] = "</a></li>";
-        $config["num_tag_open"] = "<li class='page-item'>";
+        $config["num_tag_open"] = "<li>";
         $config["num_tag_close"] = "</li>";
         $config["next_link"] = "<i class='fa fa-angle-double-right'></i>";
-        $config["next_tag_open"] = "<li class='page-item'>";
+        $config["next_tag_open"] = "<li>";
         $config["next_tag_close"] = "</li>";
         $config["last_link"] = "Son";
-        $config["last_tag_open"] = "<li class='page-item'>";
+        $config["last_tag_open"] = "<li>";
         $config["last_tag_close"] = "</li>";
         $config["full_tag_close"] = "</ul>";
-        $config['attributes'] = array('class' => 'page-link');
+        $config['attributes'] = array('class' => '');
         $config['total_rows'] = $this->general_model->rowCount("services", ["isActive" => 1]);
         $config['per_page'] = 12;
         $choice = $config["total_rows"] / $config["per_page"];
@@ -362,7 +375,6 @@ class Home extends CI_Controller
      */
     public function sectors()
     {
-        $seo_url = $this->uri->segment(2);
         $this->viewData->sectors = $this->general_model->get_all("sectors", null, null, ["isActive" => 1], [], [], []);
 
         foreach ($this->viewData->sectors as $key => $data) :
@@ -438,25 +450,25 @@ class Home extends CI_Controller
         $config['base_url'] = (!empty($seo_url) && !is_numeric($seo_url) ? base_url($this->uri->segment(1) . "/{$seo_url}") : base_url($this->uri->segment(1)));
         $config['uri_segment'] = (!empty($seo_url) && !is_numeric($seo_url) ? 3 : 2);
         $config['use_page_numbers'] = TRUE;
-        $config["full_tag_open"] = "<ul class='pagination justify-content-center'>";
+        $config["full_tag_open"] = "<ul class='pagination-cr mt-8 pt-8 border-top justify-content-center'>";
         $config["first_link"] = "İlk";
-        $config["first_tag_open"] = "<li class='page-item'>";
+        $config["first_tag_open"] = "<li>";
         $config["first_tag_close"] = "</li>";
         $config["prev_link"] = "<i class='fa fa-angle-double-left'></i>";
-        $config["prev_tag_open"] = "<li class='page-item'>";
+        $config["prev_tag_open"] = "<li>";
         $config["prev_tag_close"] = "</li>";
-        $config["cur_tag_open"] = "<li class='page-item active'><a class='page-link' href='javascript:void(0)'>";
+        $config["cur_tag_open"] = "<li class='active'><a href='javascript:void(0)'>";
         $config["cur_tag_close"] = "</a></li>";
-        $config["num_tag_open"] = "<li class='page-item'>";
+        $config["num_tag_open"] = "<li>";
         $config["num_tag_close"] = "</li>";
         $config["next_link"] = "<i class='fa fa-angle-double-right'></i>";
-        $config["next_tag_open"] = "<li class='page-item'>";
+        $config["next_tag_open"] = "<li>";
         $config["next_tag_close"] = "</li>";
         $config["last_link"] = "Son";
-        $config["last_tag_open"] = "<li class='page-item'>";
+        $config["last_tag_open"] = "<li>";
         $config["last_tag_close"] = "</li>";
         $config["full_tag_close"] = "</ul>";
-        $config['attributes'] = array('class' => 'page-link');
+        $config['attributes'] = array('class' => '');
         $config['total_rows'] = (!empty($seo_url) && !is_numeric($seo_url) ? $this->general_model->rowCount("news", ["isActive" => 1, "category_id" => $category_id]) : $this->general_model->rowCount("news", ["isActive" => 1,]));
         $config['per_page'] = 12;
         $choice = $config["total_rows"] / $config["per_page"];
@@ -546,25 +558,25 @@ class Home extends CI_Controller
         $config['base_url'] = (!empty($seo_url) && !is_numeric($seo_url) ? base_url("galeriler/{$seo_url}") : base_url("galeriler"));
         $config['uri_segment'] = (!empty($seo_url) && !is_numeric($seo_url) ? 3 : 2);
         $config['use_page_numbers'] = TRUE;
-        $config["full_tag_open"] = "<ul class='pagination justify-content-center'>";
+        $config["full_tag_open"] = "<ul class='pagination-cr mt-8 pt-8 border-top justify-content-center'>";
         $config["first_link"] = "İlk";
-        $config["first_tag_open"] = "<li class='page-item'>";
+        $config["first_tag_open"] = "<li>";
         $config["first_tag_close"] = "</li>";
         $config["prev_link"] = "<i class='fa fa-angle-double-left'></i>";
-        $config["prev_tag_open"] = "<li class='page-item'>";
+        $config["prev_tag_open"] = "<li>";
         $config["prev_tag_close"] = "</li>";
-        $config["cur_tag_open"] = "<li class='page-item active'><a class='page-link' href='javascript:void(0)'>";
+        $config["cur_tag_open"] = "<li class='active'><a href='javascript:void(0)'>";
         $config["cur_tag_close"] = "</a></li>";
-        $config["num_tag_open"] = "<li class='page-item'>";
+        $config["num_tag_open"] = "<li>";
         $config["num_tag_close"] = "</li>";
         $config["next_link"] = "<i class='fa fa-angle-double-right'></i>";
-        $config["next_tag_open"] = "<li class='page-item'>";
+        $config["next_tag_open"] = "<li>";
         $config["next_tag_close"] = "</li>";
         $config["last_link"] = "Son";
-        $config["last_tag_open"] = "<li class='page-item'>";
+        $config["last_tag_open"] = "<li>";
         $config["last_tag_close"] = "</li>";
         $config["full_tag_close"] = "</ul>";
-        $config['attributes'] = array('class' => 'page-link');
+        $config['attributes'] = array('class' => '');
         $config['total_rows'] = (!empty($seo_url) && !is_numeric($seo_url) ? $this->general_model->rowCount("galleries", ["isActive" => 1, "isCover" => 0, "gallery_id" => $gallery_id]) : $this->general_model->rowCount("galleries", ["isActive" => 1,]));
         $config['per_page'] = 12;
         $choice = $config["total_rows"] / $config["per_page"];

@@ -1,13 +1,12 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed'); ?>
-<!-- Breadcrumb Area Start Here -->
-<div class="breadcrumbs-area position-relative mb-text-p" style="background-image:url('<?= base_url("public/images/funfact/1.webp") ?>');background-repeat:no-repeat;background-position:center center">
-    <div class="overlay"></div>
+<!-- Breadcrumb Section Start -->
+<div class="section breadcrumb-bg">
     <div class="container">
         <div class="row">
-            <div class="col-12 text-center">
-                <div class="breadcrumb-content position-relative section-content">
-                    <h3 class="title text-white"><?= strto("lower|upper", $gallery->title->$lang) ?></h3>
-                    <ul>
+            <div class="col-12">
+                <div class="cr-breadcrumb-area">
+                    <h1 class="title"><?= strto("lower|upper", $gallery->title->$lang) ?></h1>
+                    <ul class="breadcrumb-list">
                         <li><a href="<?= base_url(); ?>" title="<?= strto("lower|upper", $languageJSON["routes"]["anasayfa"]) ?>"><?= strto("lower|upper", $languageJSON["routes"]["anasayfa"]) ?></a></li>
                         <li><a href="<?= base_url($languageJSON["routes"]["galeriler"]); ?>" title="<?= strto("lower|upper", $languageJSON["routes"]["galeriler"]); ?>"><?= strto("lower|upper", $languageJSON["routes"]["galeriler"]); ?></a></li>
                         <li><span><?= strto("lower|upper", $gallery->title->$lang); ?></span></li>
@@ -17,42 +16,144 @@
         </div>
     </div>
 </div>
-<!-- Breadcrumb Area End Here -->
+<!-- Breadcrumb Section End -->
 
-<!-- Blog Section Start Here -->
-<div class="blog-section pt-90 pb-90">
+<!-- Project Section Start -->
+<div class="section section-padding">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-12 order-lg-1">
-                <div class="row mb-n10">
-                    <div class="row gallery-slider" itemscope>
-                        <?php foreach ($gallery_items as $key => $value) : ?>
-                            <figure class="col-lg-4 col-md-6" itemprop="associatedMedia" itemscope>
-                                <?php if ($gallery->gallery_type == "files") : ?>
-                                    <a href="<?= get_picture("galleries_v/$gallery->gallery_type/$gallery->folder_name->$lang", $value->url) ?>" alt="<?= $value->title ?>" download><i class="fa fa-download fa-2x"></i></a>
-                                <?php elseif ($gallery->gallery_type == "videos") : ?>
-                                    <video id="my-video<?= $key ?>" controls preload="auto" width="100%">
-                                        <source src="<?= get_picture("galleries_v/$gallery->gallery_type/$gallery->folder_name->$lang", $value->url) ?>" />
-                                    </video>
-                                <?php elseif ($gallery->gallery_type == "video_urls") : ?>
-                                    <iframe src="<?= $value->url ?>" allowfullscreen allowtransparency></iframe>
-                                <?php else : ?>
-                                    <a href="<?= get_picture("galleries_v/{$gallery->gallery_type}/{$gallery->folder_name->$lang}", $value->url) ?>" title="<?= $languageJSON["detailPages"]["viewItem"] ?>" itemprop="contentUrl" data-size="964x1024">
-                                        <picture>
-                                            <img class="img-fluid" src="<?= get_picture("galleries_v/{$gallery->gallery_type}/{$gallery->folder_name->$lang}", $value->url) ?>" alt="<?= $value->title ?>" itemprop="thumbnail">
-                                        </picture>
-                                        <figcaption itemprop="caption description">
-                                            <small><?= $value->title ?></small>
-                                            <?= $value->description ?>
-                                        </figcaption>
-                                    </a>
-                                <?php endif ?>
-                            </figure>
-                        <?php endforeach ?>
+
+        <div class="row mb-n9">
+            <div class="col-md-5 col-lg-3 mb-8 col-sm-12">
+                <div class="project-info">
+                    <h4 class="title mb-6"></h4>
+                    <ul class="mb-n1">
+                        <li><span><?= $languageJSON["detailPages"]["publishDate"] ?> :</span> <?= iconv("ISO-8859-9", "UTF-8", strftime("%d %B %Y, %A %X", strtotime($gallery->createdAt))) ?></li>
+                        <li><span><?= $languageJSON["detailPages"]["lastUpdate"] ?> :</span> <?= iconv("ISO-8859-9", "UTF-8", strftime("%d %B %Y, %A %X", strtotime($gallery->updatedAt))); ?></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-7 col-lg-9 col-sm-12 mb-8">
+                <div class="project-desc">
+                    <h4 class="title mb-6"><?= $gallery->title->$lang ?></h4>
+                    <?= !empty($gallery->content->$lang) ? $gallery->content->$lang : null ?>
+                    <div class="project-image mb-10">
+                        <div class="row gallery-slider" itemscope>
+                            <?php foreach ($gallery_items as $key => $value) : ?>
+                                <figure class="col-lg-4 col-md-6" itemprop="associatedMedia" itemscope>
+                                    <?php if ($gallery->gallery_type == "files") : ?>
+                                        <a href="<?= get_picture("galleries_v/$gallery->gallery_type/$gallery->folder_name->$lang", $value->url) ?>" alt="<?= $value->title ?>" download><i class="fa fa-download fa-2x"></i></a>
+                                    <?php elseif ($gallery->gallery_type == "videos") : ?>
+                                        <video id="my-video<?= $key ?>" controls preload="auto" width="100%">
+                                            <source src="<?= get_picture("galleries_v/$gallery->gallery_type/$gallery->folder_name->$lang", $value->url) ?>" />
+                                        </video>
+                                    <?php elseif ($gallery->gallery_type == "video_urls") : ?>
+                                        <iframe src="<?= $value->url ?>" allowfullscreen allowtransparency></iframe>
+                                    <?php else : ?>
+                                        <a href="<?= get_picture("galleries_v/{$gallery->gallery_type}/{$gallery->folder_name->$lang}", $value->url) ?>" title="<?= $languageJSON["detailPages"]["viewItem"] ?>" itemprop="contentUrl" data-size="964x1024">
+                                            <picture>
+                                                <img class="img-fluid" src="<?= get_picture("galleries_v/{$gallery->gallery_type}/{$gallery->folder_name->$lang}", $value->url) ?>" alt="<?= $value->title ?>" itemprop="thumbnail">
+                                            </picture>
+                                            <figcaption itemprop="caption description">
+                                                <small><?= $value->title ?></small>
+                                                <?= $value->description ?>
+                                            </figcaption>
+                                        </a>
+                                    <?php endif ?>
+                                </figure>
+                            <?php endforeach ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Blog Section End Here -->
+<!-- Project Masonry Section End -->
+
+<?php if (!empty($brands)) : ?>
+    <!-- Brand Logo Section Start -->
+    <div class="section bg-secondary brand-logo-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                    <div class="brand-logo-carousel text-center">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper align-items-center">
+                                <?php foreach ($brands as $key => $value) : ?>
+                                    <?php if (strtotime($value->sharedAt->$lang) <= strtotime("now")) : ?>
+                                        <!-- Single Brand Logo Start -->
+                                        <div class="swiper-slide">
+                                            <div class="brand-logo" data-aos="fade-up" data-aos-delay="300">
+                                                <picture>
+                                                    <img data-src="<?= get_picture("brands_v", $value->img_url->$lang) ?>" alt="<?= $value->title->$lang ?>" width="150" height="70" class="lazyload">
+                                                </picture>
+                                            </div>
+                                        </div>
+                                        <!-- Single Brand Logo End -->
+                                    <?php endif ?>
+                                <?php endforeach ?>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Brand Logo Section End -->
+<?php endif ?>
+
+<?php if (!empty($testimonials)) : ?>
+    <!-- Testimonial Section Start -->
+    <div class="section section-padding">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-12 section-title" data-aos="fade-up" data-aos-delay="300">
+                    <h2 class="title"><?= $languageJSON["homepage"]["testimonials"]["value"] ?></h2>
+                    <span></span>
+                </div>
+                <!-- Section Title End -->
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="testimonial-carousel">
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <?php foreach ($testimonials as $key => $value) : ?>
+                                    <?php if (strtotime($value->sharedAt->$lang) <= strtotime("now")) : ?>
+                                        <!-- Single Testimonial Start -->
+                                        <div class="swiper-slide">
+                                            <div class="testimonial" data-aos="fade-up" data-aos-delay="300">
+                                                <div class="text">
+                                                    <p>"<?= stripslashes($value->content->$lang) ?></p>
+                                                </div>
+                                                <div class="thumb">
+                                                    <picture>
+                                                        <img data-src="<?= get_picture("testimonials_v", $value->img_url->$lang) ?>" alt="<?= $value->title->$lang ?>" width="90" height="90" class="rounded-circle lazyload">
+                                                    </picture>
+                                                    <div class="name">
+                                                        <h2 class="title"><?= $value->full_name->$lang ?> </h2>
+                                                        <h4 class="sub-title"><?= $value->company->$lang ?></h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Single Testimonial End -->
+                                    <?php endif ?>
+                                <?php endforeach ?>
+
+                            </div>
+
+                            <!-- pagination -->
+                            <div class="swiper-pagination"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Testimonial Section End -->
+<?php endif ?>

@@ -92,6 +92,12 @@
 						<!-- Contact Address End -->
 					</div>
 				</div>
+				<div class="col-12 col-sm-6 col-lg-2 col-xl-3 mb-10">
+					<div class="single-footer-widget aos-init aos-animate">
+						<h2 class="widget-title"><?= $languageJSON["footer"]["menus"]["value"] ?></h2>
+						<?= $footer_menus ?>
+					</div>
+				</div>
 				<div class="col-12 col-sm-6 col-lg-3 col-xl-3 mb-10">
 					<div class="single-footer-widget">
 						<h2 class="widget-title"><?= $languageJSON["footer"]["services"]["value"] ?></h2>
@@ -104,33 +110,18 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-12 col-sm-6 col-lg-2 col-xl-3 mb-10">
-					<div class="single-footer-widget aos-init aos-animate">
-						<h2 class="widget-title"><?= $languageJSON["footer"]["menus"]["value"] ?></h2>
-						<?= $footer_menus ?>
-					</div>
-				</div>
+
 				<div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-10">
 					<div class="single-footer-widget">
 						<h2 class="widget-title"><?= $languageJSON["footer"]["newsletter"]["value"] ?></h2>
 						<div class="widget-body pt-5">
-							<p class="desc-content mb-0"><?= $languageJSON["footer"]["newsletterDesc"]["value"] ?></p>
-
-							<!-- Newsletter Form Start -->
-							<div class="newsletter-form-wrap pt-4">
-								<form id="mc-form" class="mc-form">
-									<input type="email" id="mc-email" class="form-control email-box" placeholder="<?= $languageJSON["footer"]["newsletterPlaceholder"]["value"] ?>" name="EMAIL">
-									<button id="mc-submit" class="newsletter-btn" type="submit"><i class="fa fa-envelope"></i></button>
-								</form>
-								<!-- mailchimp-alerts Start -->
-								<div class="mailchimp-alerts text-centre">
-									<div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-									<div class="mailchimp-success text-success"></div><!-- mailchimp-success end -->
-									<div class="mailchimp-error text-danger"></div><!-- mailchimp-error end -->
-								</div>
-								<!-- mailchimp-alerts end -->
-							</div>
-							<!-- Newsletter Form End -->
+							<ul class="widget-list">
+								<?php foreach ($footerNews as $key => $value) : ?>
+									<?php if (strtotime($value->sharedAt->$lang) <= strtotime("now")) : ?>
+										<li><a href="<?= base_url($languageJSON["routes"]["haber"] . "/{$value->seo_url->$lang}") ?>"><?= $value->title->$lang ?></a></li>
+									<?php endif ?>
+								<?php endforeach ?>
+							</ul>
 
 							<!-- Soclial Link Start -->
 							<div class="widget-social justify-content-start mt-6">

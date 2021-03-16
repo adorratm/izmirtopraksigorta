@@ -3,18 +3,16 @@ $( document ).ready( function () {
     /* JS inside the modal */
     initPhotoSwipeFromDOM( '.categories-slider' );
     initPhotoSwipeFromDOM( '.gallery-slider' );
-    $( document ).on( "click", ".makeReservation", function ( e ) {
+    $( document ).on( "click", ".makeOffer", function ( e ) {
         e.preventDefault();
         e.stopImmediatePropagation();
         let url = $( this ).data( "url" );
-        let formData = new FormData( document.getElementById( "checkinform" ) );
+        let formData = new FormData( document.getElementById( "offerform" ) );
         createAjax( url, formData, function () {
             $( "input[name='phone']" ).val( null );
             $( "input[name='email']" ).val( null );
             $( "input[name='full_name']" ).val( null );
-            $( "input[name='personcount']" ).val( 1 );
-            $( "input[name='checkin']" ).val( "<?= date('Y-m-d H:i:s') ?>" );
-            $( "input[name='checkout']" ).val( "<?= date('Y-m-d H:i:s', strtotime('+1 day', time())) ?>" );
+            $( "input[name='message']" ).val( null );
         } );
     } );
     $( document ).on( "click", ".btnSubmitForm", function ( e ) {

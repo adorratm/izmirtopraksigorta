@@ -2,7 +2,9 @@
 <?php $user = get_active_user(); ?>
 <!-- Vertical Nav -->
 <nav class="hk-nav hk-nav-dark">
-    <a href="javascript:void(0);" id="hk_nav_close" class="hk-nav-close"><i class="fa fa-times position-absolute"></i><picture><img class="brand-img mx-auto mt-1" width="160" src="https://mutfakyapim.com/images/mutfak/logo.png?v=1"></picture></a>
+    <a href="javascript:void(0);" id="hk_nav_close" class="hk-nav-close"><i class="fa fa-times position-absolute"></i>
+        <picture><img class="brand-img mx-auto mt-1" width="160" src="https://mutfakyapim.com/images/mutfak/logo.png?v=1"></picture>
+    </a>
     <div class="nicescroll-bar">
         <div class="navbar-nav-wrap">
             <ul class="navbar-nav flex-column">
@@ -163,7 +165,7 @@
                             <span class="nav-link-text">Markalar</span>
                         </a>
                     </li>
-                    <?php } ?>
+                <?php } ?>
                 <?php if (isAllowedViewModule("sectors")) { ?>
                     <li class="nav-item <?= ($this->uri->segment(1) == "sectors") ? "active" : "" ?> ">
                         <a class="nav-link" href="<?= base_url("sectors") ?>">
@@ -172,11 +174,11 @@
                         </a>
                     </li>
                 <?php } ?>
-                <?php if (isAllowedViewModule("reservations")) { ?>
-                    <li class="nav-item d-none <?= ($this->uri->segment(1) == "reservations") ? "active" : "" ?> ">
-                        <a class="nav-link" href="<?= base_url("reservations") ?>">
+                <?php if (isAllowedViewModule("offers")) { ?>
+                    <li class="nav-item <?= ($this->uri->segment(1) == "offers") ? "active" : "" ?> ">
+                        <a class="nav-link" href="<?= base_url("offers") ?>">
                             <i class="fa fa-bell"></i>
-                            <span class="nav-link-text">Randevular</span>
+                            <span class="nav-link-text">Teklif Başvuruları</span>
                         </a>
                     </li>
                 <?php } ?>

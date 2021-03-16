@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -77,11 +77,9 @@ $route["galeriler/(:any)"] = "home/galleries/$1";
 $route["galeriler/(:any)/(:num)"] = "home/galleries/$1/$2";
 $route["galeri/(:any)"] = "home/gallery_detail/$1";
 
-$route["rezervasyon"] = "home/reservation";
-$route['rezervasyon-yap'] = 'home/make_reservation';
-$route['iletisim-formu']='home/contact_form';
-$route['iletisim']='home/contact';
-$route['sayfa/(:any)']='home/page/$1';
+$route["hizli-teklif-al"] = "home/offer";
+$route['teklif-basvurusu'] = 'home/make_offer';
+$route['iletisim-formu'] = 'home/contact_form';
+$route['iletisim'] = 'home/contact';
+$route['sayfa/(:any)'] = 'home/page/$1';
 $route['dil-degistir'] = 'home/switchLanguage';
-
-

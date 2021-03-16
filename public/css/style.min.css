@@ -19960,6 +19960,7 @@ only screen and (max-width: 767px) {
 }
 
 .contact-form .input-item,
+.contact-form .select-item,
 .contact-form .textarea-item {
     width: 100%;
     border: 0;
@@ -19968,6 +19969,24 @@ only screen and (max-width: 767px) {
 }
 
 .contact-form .input-item:focus,
+.contact-form .select-item:focus,
+.contact-form .textarea-item:focus {
+    border: 0px;
+    outline: 0px
+}
+
+
+.contact-form .input-item,
+.contact-form .select-item,
+.contact-form .textarea-item {
+    width: 100%;
+    border: 0;
+    font-size: 14px;
+    background: #dcd9d9
+}
+
+.contact-form .input-item:focus,
+.contact-form .select-item:focus,
 .contact-form .textarea-item:focus {
     border: 0px;
     outline: 0px

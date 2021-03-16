@@ -26,9 +26,9 @@
             "top": "İletişim",
             "value": "İletişim"
         },
-        "reservation": {
-            "top": "Online Randevu",
-            "value": "Online Randevu"
+        "offer": {
+            "top": "Hızlı Teklif Al",
+            "value": "Hızlı Teklif Al"
         },
         "map": {
             "top": "Harita",
@@ -83,12 +83,12 @@
             "value": "Harita"
         },
         "newsletter": {
-            "top": "Haber Bülteni",
-            "value": "HABER BÜLTENİ"
+            "top": "Haberler",
+            "value": "HABERLER"
         },
         "newsletterDesc": {
-            "top": "Yayınlanan en son paylaşımları ve en son haberleri almak için İzmir Delta Muhasebe haber bültenine abone olun.",
-            "value": "Yayınlanan en son paylaşımları ve en son haberleri almak için İzmir Delta Muhasebe haber bültenine abone olun."
+            "top": "Yayınlanan en son paylaşımları ve en son haberleri almak için İzmir Toprak Sigorta haber bültenine abone olun.",
+            "value": "Yayınlanan en son paylaşımları ve en son haberleri almak için İzmir Toprak Sigorta haber bültenine abone olun."
         },
         "newsletterPlaceholder": {
             "top": "E-mail Adresinizi Girin",
@@ -169,20 +169,16 @@
             "value": "gün"
         }
     },
-    "reservation": {
-        "reservation": {
-            "top": "Online Randevu",
-            "value": "Online Randevu"
+    "offer": {
+        "offer": {
+            "top": "Hızlı Teklif Al",
+            "value": "Hızlı Teklif Al"
         }
     },
-    "reservationForm": {
-        "checkin": {
-            "top": "Randevu Tarihi",
-            "value": "Randevu Tarihi"
-        },
-        "birthday": {
-            "top": "Doğum Tarihi",
-            "value": "Doğum Tarihi"
+    "offerForm": {
+        "type": {
+            "top": "Poliçe Türü",
+            "value": "Poliçe Türü"
         },
         "namesurname": {
             "top": "Adınız ve Soyadınız",
@@ -196,25 +192,13 @@
             "top": "E-mail Adresiniz",
             "value": "E-mail Adresiniz"
         },
-        "gender": {
-            "top": "Cinsiyet",
-            "value": "Cinsiyet"
-        },
         "note": {
-            "top": "Randevu Notu",
-            "value": "Randevu Notu"
+            "top": "Teklif Notu",
+            "value": "Teklif Notu"
         },
-        "genderMale": {
-            "top": "Erkek",
-            "value": "Erkek"
-        },
-        "genderFemale": {
-            "top": "Kadın",
-            "value": "Kadın"
-        },
-        "makereservation": {
-            "top": "Randevu Al",
-            "value": "Randevu Al"
+        "makeoffer": {
+            "top": "Teklif Al",
+            "value": "Teklif Al"
         },
         "successMessageTitleText": {
             "top": "Başarılı!",
@@ -225,24 +209,24 @@
             "value": "Başarısız!"
         },
         "emptyMessageText": {
-            "top": "Randevu Kaydı Yapılırken Hata Oluştu.",
-            "value": "Randevu Kaydı Yapılırken Hata Oluştu."
+            "top": "Teklif Kaydı Yapılırken Hata Oluştu.",
+            "value": "Teklif Kaydı Yapılırken Hata Oluştu."
         },
         "emptyMessageText2": {
             "top": "Bilgisini Doldurduğunuzdan Emin Olup Tekrar Deneyin.",
             "value": "Bilgisini Doldurduğunuzdan Emin Olup Tekrar Deneyin."
         },
         "successMessageText": {
-            "top": "Randevu Kaydı Başarıyla Oluşturuldu. Göndermiş Olduğunuz Bilgiler İle Sizinle İletişime Geçilecektir.",
-            "value": "Randevu Kaydı Başarıyla Oluşturuldu. Göndermiş Olduğunuz Bilgiler İle Sizinle İletişime Geçilecektir."
+            "top": "Teklif Kaydı Başarıyla Oluşturuldu. Göndermiş Olduğunuz Bilgiler İle Sizinle İletişime Geçilecektir.",
+            "value": "Teklif Kaydı Başarıyla Oluşturuldu. Göndermiş Olduğunuz Bilgiler İle Sizinle İletişime Geçilecektir."
         },
         "errorMessageText": {
-            "top": "Randevu Kaydı Yapılırken Hata Oluştu. Lütfen Tekrar Deneyin.",
-            "value": "Randevu Kaydı Yapılırken Hata Oluştu. Lütfen Tekrar Deneyin."
+            "top": "Teklif Kaydı Yapılırken Hata Oluştu. Lütfen Tekrar Deneyin.",
+            "value": "Teklif Kaydı Yapılırken Hata Oluştu. Lütfen Tekrar Deneyin."
         },
         "errorEmailMessageText": {
-            "top": "Randevu Kaydı E-maili Gönderilirken Hata Oluştu. Lütfen Tekrar Deneyin.",
-            "value": "Randevu Kaydı E-maili Gönderilirken Hata Oluştu. Lütfen Tekrar Deneyin."
+            "top": "Teklif Kaydı E-maili Gönderilirken Hata Oluştu. Lütfen Tekrar Deneyin.",
+            "value": "Teklif Kaydı E-maili Gönderilirken Hata Oluştu. Lütfen Tekrar Deneyin."
         }
     },
     "contact": {
@@ -253,6 +237,22 @@
         "contactInformation": {
             "top": "İLETİŞİM BİLGİLERİMİZ",
             "value": "İLETİŞİM BİLGİLERİMİZ"
+        },
+        "fax": {
+            "top": "Fax Numaralarımız",
+            "value": "Fax Numaralarımız"
+        },
+        "phone": {
+            "top": "Telefon Numaralarımız",
+            "value": "Telefon Numaralarımız"
+        },
+        "email": {
+            "top": "Sosyal Medya",
+            "value": "Sosyal Medya"
+        },
+        "address": {
+            "top": "Adres Bilgilerimiz",
+            "value": "Adres Bilgilerimiz"
         }
     },
     "contactForm": {
@@ -335,8 +335,8 @@
         "galeriler": "galeriler",
         "galeri": "galeri",
         "sayfa": "sayfa",
-        "rezervasyon": "randevu",
-        "rezervasyon-yap": "randevu-al",
+        "hizli-teklif-al": "hizli-teklif-al",
+        "teklif-basvurusu": "teklif-basvurusu",
         "iletisim": "iletisim",
         "iletisim-formu": "iletisim-formu",
         "sektorler": "sektorler"

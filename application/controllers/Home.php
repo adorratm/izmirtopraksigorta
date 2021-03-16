@@ -67,13 +67,26 @@ class Home extends CI_Controller
         /**
          * Footer Services
          */
-        $this->viewData->footerServices = $this->general_model->get_all("services", null, "rank ASC", ["isActive" => 1], [], [], [7]);
+        $this->viewData->footerServices = $this->general_model->get_all("services", null, "id DESC", ["isActive" => 1], [], [], [7]);
         foreach ($this->viewData->footerServices as $key => $data) :
             foreach ($data as $k => $v) :
                 if (isJson($v)) :
                     $this->viewData->footerServices[$key]->$k = json_decode($v);
                 else :
                     $this->viewData->footerServices[$key]->$k = $v;
+                endif;
+            endforeach;
+        endforeach;
+        /**
+         * Footer News
+         */
+        $this->viewData->footerNews = $this->general_model->get_all("news", null, "id DESC", ["isActive" => 1], [], [], [7]);
+        foreach ($this->viewData->footerNews as $key => $data) :
+            foreach ($data as $k => $v) :
+                if (isJson($v)) :
+                    $this->viewData->footerNews[$key]->$k = json_decode($v);
+                else :
+                    $this->viewData->footerNews[$key]->$k = $v;
                 endif;
             endforeach;
         endforeach;
@@ -690,16 +703,30 @@ class Home extends CI_Controller
         endif;
     }
     /**
-     * Reservation
+     * Offer
      */
-    public function reservation()
+    public function offer()
     {
-        $this->viewFolder = "reservation_v/index";
+        $this->viewFolder = "offer_v/index";
+
+        /**
+         * Services
+         */
+        $this->viewData->services = $this->general_model->get_all("services", [], [], ["isActive" => 1]);
+        foreach ($this->viewData->services as $key => $data) :
+            foreach ($data as $k => $v) :
+                if (isJson($v)) :
+                    $this->viewData->services[$key]->$k = json_decode($v);
+                else :
+                    $this->viewData->services[$key]->$k = $v;
+                endif;
+            endforeach;
+        endforeach;
         $this->viewData->meta_title = $this->viewData->settings->company_name;
         $this->viewData->meta_desc  = str_replace("”", "\"", stripslashes($this->viewData->settings->meta_description));
         $this->viewData->meta_keyw  = clean($this->viewData->settings->meta_keywords);
 
-        $this->viewData->og_url                 = clean(base_url($this->viewData->languageJSON["routes"]["rezervasyon"]));
+        $this->viewData->og_url                 = clean(base_url($this->viewData->languageJSON["routes"]["hizli-teklif-al"]));
         $this->viewData->og_image           = clean(get_picture("settings_v", $this->viewData->settings->logo));
         $this->viewData->og_type          = "article";
         $this->viewData->og_title           = clean($this->viewData->settings->company_name);
@@ -707,27 +734,32 @@ class Home extends CI_Controller
         $this->render();
     }
     /**
-     * Make Reservation
+     * Make Offer
      */
-    public function make_reservation()
+    public function make_offer()
     {
         $data = rClean($this->input->post());
         if (checkEmpty($data)["error"]) :
             $key = checkEmpty($data)["key"];
-            echo json_encode(["success" => false, "title" => $this->viewData->languageJSON["reservationForm"]["errorMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["reservationForm"]["emptyMessageText"]["value"] . " \"{$key}\" " . $this->viewData->languageJSON["reservationForm"]["emptyMessageText2"]["value"]]);
+            echo json_encode(["success" => false, "title" => $this->viewData->languageJSON["offerForm"]["errorMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["offerForm"]["emptyMessageText"]["value"] . " \"{$key}\" " . $this->viewData->languageJSON["offerForm"]["emptyMessageText2"]["value"]]);
             die();
         else :
-            $email_message = "\"" . $data['full_name'] . "\" İsimli ziyaretçi yeni bir rezervasyon oluşturdu. \n <b>Ad Soyad : </b> " . $data["full_name"] . "\n <b>Telefon : </b> " . $data["phone"] . "\n <b>E-mail : </b> " . $data["email"] . "\n <b>Giriş Tarihi : </b> " . $data["checkin"] . "\n <b>Çıkış Tarihi : </b> " . $data["checkout"] . "\n <b> Kişi Sayısı : </b> " . $data["personcount"];
-            if (send_emailv2(null, "Yeni Bir Rezervasyonunuz Var! | " . $this->viewData->settings->company_name, $email_message, [], $this->viewData->lang)) :
-                if ($this->general_model->add("reservations", $data)) :
-                    echo json_encode(["success" => true, "title" => $this->viewData->languageJSON["reservationForm"]["successMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["reservationForm"]["successMessageText"]["value"]]);
+            $service = $this->general_model->get("services", null, ["id" => $data["type"], "isActive" => 1]);
+            $title = null;
+            if (!empty($service)) :
+                $title = json_decode($service->title)[$this->viewData->lang];
+            endif;
+            $email_message = "\"" . $data['full_name'] . "\" İsimli ziyaretçi yeni bir teklif oluşturdu. \n <b>Ad Soyad : </b> " . $data["full_name"] . "\n <b>Telefon : </b> " . $data["phone"] . "\n <b>E-mail : </b> " . $data["email"] . "\n <b>Teklif Poliçesi : </b>" . $title . "\n <b>Teklif Mesajı : </b>" . $data["message"];
+            if (send_emailv2(null, "Yeni Bir Teklif Başvurusu Var! | " . $this->viewData->settings->company_name, $email_message, [], $this->viewData->lang)) :
+                if ($this->general_model->add("offers", $data)) :
+                    echo json_encode(["success" => true, "title" => $this->viewData->languageJSON["offerForm"]["successMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["offerForm"]["successMessageText"]["value"]]);
                     die();
                 else :
-                    echo json_encode(["success" => false, "title" => $this->viewData->languageJSON["reservationForm"]["errorMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["reservationForm"]["errorMessageText"]["value"]]);
+                    echo json_encode(["success" => false, "title" => $this->viewData->languageJSON["offerForm"]["errorMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["offerForm"]["errorMessageText"]["value"]]);
                     die();
                 endif;
             else :
-                echo json_encode(["success" => false, "title" => $this->viewData->languageJSON["reservationForm"]["errorMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["reservationForm"]["errorEmailMessageText"]["value"]]);
+                echo json_encode(["success" => false, "title" => $this->viewData->languageJSON["offerForm"]["errorMessageTitleText"]["value"], "message" => $this->viewData->languageJSON["offerForm"]["errorEmailMessageText"]["value"]]);
                 die();
             endif;
         endif;

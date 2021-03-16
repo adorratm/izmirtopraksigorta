@@ -39,7 +39,7 @@
                     <div class="contact-address-icon">
                         <i class="fa fa-map-marker"></i>
                     </div>
-                    <h4 class="title">Address Street</h4>
+                    <h4 class="title"><?= strto("lower|upper", $languageJSON["contact"]["address"]["value"]); ?></h4>
                     <?php if (!empty($settings->address)) : ?>
                         <p><?= clean($settings->address) ?></p>
                     <?php endif ?>
@@ -56,7 +56,7 @@
                     <div class="contact-address-icon">
                         <i class="fa fa-phone"></i>
                     </div>
-                    <h4 class="title">Phone Number</h4>
+                    <h4 class="title"><?= strto("lower|upper", $languageJSON["contact"]["phone"]["value"]); ?></h4>
                     <?php if (!empty($settings->phone_1)) : ?>
                         <p><a href="tel:<?= $settings->phone_1 ?>" title="<?= $languageJSON["footer"]["phone_1"]["value"] ?>"><i class="fa fa-phone"></i> <?= $settings->phone_1 ?></a></p>
                     <?php endif ?>
@@ -75,7 +75,7 @@
                     <div class="contact-address-icon">
                         <i class="fa fa-fax"></i>
                     </div>
-                    <h4 class="title">Fax Number</h4>
+                    <h4 class="title"><?= strto("lower|upper", $languageJSON["contact"]["fax"]["value"]); ?></h4>
                     <?php if (!empty($settings->fax_1)) : ?>
                         <p><a href="tel:<?= $settings->fax_1 ?>" title="<?= $languageJSON["footer"]["fax_1"]["value"] ?>"><i class="fa fa-fax"></i> <?= $settings->fax_1 ?></a></p>
                     <?php endif ?>
@@ -94,7 +94,7 @@
                     <div class="contact-address-icon">
                         <i class="fa fa-envelope"></i>
                     </div>
-                    <h4 class="title">Address Email</h4>
+                    <h4 class="title"><?= strto("lower|upper", $languageJSON["contact"]["email"]["value"]); ?></h4>
                     <p><a href="mailto:<?= $settings->email ?>" title="E-mail"><i class="fa fa-envelope"></i> <?= $settings->email ?></a></p>
                     <?php if (!empty($settings->facebook)) : ?>
                         <p><a href="<?= $settings->facebook ?>" title="Facebook"><i class="fa fa-facebook"></i> Facebook</a></p>
